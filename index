@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acarajé da Neide - Faça seu Pedido</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fcf3e8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .app-container {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #d35400;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+        .subtitulo {
+            display: block;
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+            font-weight: normal;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+        .form-group:last-of-type {
+            border-bottom: none;
+        }
+        label.title {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+        .radio-option {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 15px;
+        }
+        .radio-option input {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        input[type="text"], input[type="tel"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 15px;
+            font-family: inherit;
+            margin-bottom: 10px;
+        }
+        .caixa-montar {
+            background-color: #fffaf0;
+            border: 2px dashed #d35400;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .btn-adicionar {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .btn-enviar {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .btn-enviar:hover {
+            background-color: #2980b9;
+        }
+        .btn-enviar:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        .item-carrinho {
+            background: #f1f2f6;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        .btn-remover {
+            background: none;
+            border: none;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .painel-total {
+            background-color: #e8f8f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #1abc9c;
+        }
+        .linha-valor {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 15px;
+        }
+        .linha-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #1abc9c;
+            color: #16a085;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <h2>Acarajé da Neide <span class="subtitulo">Olímpia - SP</span></h2>
+    <form id="formPedido">
+        
+        <div class="form-group">
+            <label class="title" for="nomeCliente">Seu Nome:</label>
+            <input type="text" id="nomeCliente" placeholder="Ex: João Silva" required>
+            
+            <label class="title" for="telefoneCliente" style="margin-top: 10px;">Seu WhatsApp / Telefone:</label>
+            <input type="tel" id="telefoneCliente" placeholder="(17) 99999-9999" required>
+
+            <label class="title" for="enderecoCliente" style="margin-top: 10px;">Endereço de Entrega:</label>
+            <input type="text" id="enderecoCliente" placeholder="Rua, Número, Bairro" required>
+        </div>
+
+        <div class="caixa-montar">
+            <h3 style="margin-top:0; color:#d35400; font-size:16px;">Montar Acarajé</h3>
+            <div style="margin-bottom: 10px;">
+                <label class="title" style="font-size: 14px;">Vai querer Pimenta?</label>
+                <label class="radio-option"><input type="radio" name="pimenta" value="Com pimenta"> Com pimenta</label>
+                <label class="radio-option"><input type="radio" name="pimenta" value="Sem pimenta"> Sem pimenta</label>
+            </div>
+            <div>
+                <label class="title" style="font-size: 14px;">E o Camarão?</label>
+                <label class="radio-option"><input type="radio" name="camarao" value="Com camarão" data-preco="15"> Com camarão - R$ 15,00</label>
+                <label class="radio-option"><input type="radio" name="camarao" value="Sem camarão" data-preco="12"> Sem camarão - R$ 12,00</label>
+            </div>
+            <button type="button" class="btn-adicionar" onclick="adicionarAcaraje()">+ Adicionar Acarajé</button>
+        </div>
+
+        <div class="form-group">
+            <label class="title">Seus Acarajés:</label>
+            <div id="listaAcarajes" style="color: #666; font-size: 14px; font-style: italic;">
+                Nenhum acarajé adicionado ainda.
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="title">Bebida para acompanhar?</label>
+            <label class="radio-option">
+                <input type="radio" name="bebida" value="Coca-Cola Lata" data-preco="5" onchange="calcularTotal()" required> Coca-Cola Lata - R$ 5,00
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="bebida" value="Sem Bebida" data-preco="0" onchange="calcularTotal()"> Não, obrigado
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="title">Forma de Pagamento:</label>
+            <label class="radio-option">
+                <input type="radio" name="pagamento" value="PIX" onchange="calcularTotal()" required> PIX
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="pagamento" value="Dinheiro" onchange="calcularTotal()"> Dinheiro
+            </label>
+            <label class="radio-option">
+                <input type="radio" name="pagamento" value="Cartão" onchange="calcularTotal()"> Cartão (+ R$ 2,00 de taxa)
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label class="title" for="obsCliente">Observações:</label>
+            <textarea id="obsCliente" rows="2" placeholder="Ex: Troco para 50, sem cebola, etc."></textarea>
+        </div>
+
+        <div class="painel-total">
+            <div class="linha-valor">
+                <span>Subtotal:</span>
+                <span id="txtSubtotal">R$ 0,00</span>
+            </div>
+            <div class="linha-valor">
+                <span>Taxa de Entrega:</span>
+                <span>R$ 5,00</span>
+            </div>
+            <div class="linha-valor" id="linhaTaxaCartao" style="display: none; color: #e74c3c;">
+                <span>Taxa da Maquininha:</span>
+                <span>R$ 2,00</span>
+            </div>
+            <div class="linha-total">
+                <span>TOTAL A PAGAR:</span>
+                <span id="txtTotalGeral">R$ 5,00</span>
+            </div>
+        </div>
+
+        <button type="button" class="btn-enviar" onclick="enviarPorEmail()">Confirmar e Enviar Pedido</button>
+    </form>
+</div>
+
+<script>
+    const EMAIL_DESTINO = "josueitaguacu22@gmail.com"; 
+
+    let carrinhoAcarajes = [];
+    const valorFrete = 5.00;
+    const taxaCartao = 2.00;
+
+    function formatarDinheiro(valor) {
+        return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function adicionarAcaraje() {
+        const pimenta = document.querySelector('input[name="pimenta"]:checked');
+        const camarao = document.querySelector('input[name="camarao"]:checked');
+
+        if (!pimenta || !camarao) {
+            alert("Por favor, escolha as opções de pimenta e camarão antes de adicionar!");
+            return;
+        }
+
+        const precoItem = parseFloat(camarao.getAttribute('data-preco'));
+
+        carrinhoAcarajes.push({
+            pimenta: pimenta.value,
+            camarao: camarao.value,
+            preco: precoItem
+        });
+
+        atualizarLista();
+        calcularTotal();
+        
+        pimenta.checked = false;
+        camarao.checked = false;
+    }
+
+    function removerAcaraje(index) {
+        carrinhoAcarajes.splice(index, 1);
+        atualizarLista();
+        calcularTotal();
+    }
+
+    function atualizarLista() {
+        const divLista = document.getElementById('listaAcarajes');
+        if (carrinhoAcarajes.length === 0) {
+            divLista.innerHTML = "Nenhum acarajé adicionado ainda.";
+            return;
+        }
+        let html = "";
+        carrinhoAcarajes.forEach((item, index) => {
+            html += `
+            <div class="item-carrinho">
+                <span><strong>${index + 1}º</strong> - ${item.pimenta} | ${item.camarao}</span>
+                <button type="button" class="btn-remover" onclick="removerAcaraje(${index})">X</button>
+            </div>`;
+        });
+        divLista.innerHTML = html;
+    }
+
+    function calcularTotal() {
+        let totalAcarajes = 0;
+        carrinhoAcarajes.forEach(item => totalAcarajes += item.preco);
+
+        let valorBebida = 0;
+        const bebidaSelecionada = document.querySelector('input[name="bebida"]:checked');
+        if (bebidaSelecionada) {
+            valorBebida = parseFloat(bebidaSelecionada.getAttribute('data-preco'));
+        }
+
+        let subtotal = totalAcarajes + valorBebida;
+        let valorTaxaExtra = 0;
+        const pagamentoSelecionado = document.querySelector('input[name="pagamento"]:checked');
+        const linhaTaxa = document.getElementById('linhaTaxaCartao');
+        
+        if (pagamentoSelecionado && pagamentoSelecionado.value === "Cartão") {
+            valorTaxaExtra = taxaCartao;
+            linhaTaxa.style.display = "flex";
+        } else {
+            linhaTaxa.style.display = "none";
+        }
+
+        let totalGeral = subtotal + valorFrete + valorTaxaExtra;
+
+        document.getElementById('txtSubtotal').innerText = formatarDinheiro(subtotal);
+        document.getElementById('txtTotalGeral').innerText = formatarDinheiro(totalGeral);
+        return { subtotal, totalGeral, valorTaxaExtra };
+    }
+
+    function enviarPorEmail() {
+        const nome = document.getElementById('nomeCliente').value;
+        const telefone = document.getElementById('telefoneCliente').value;
+        const endereco = document.getElementById('enderecoCliente').value;
+        const bebidaSelecionada = document.querySelector('input[name="bebida"]:checked');
+        const pagamentoSelecionado = document.querySelector('input[name="pagamento"]:checked');
+        const obs = document.getElementById('obsCliente').value;
+
+        // Validações
+        if (!nome || !telefone || !endereco) {
+            alert("Por favor, preencha o seu nome, telefone e endereço de entrega!");
+            return;
+        }
+        if (carrinhoAcarajes.length === 0) {
+            alert("Você precisa adicionar pelo menos um acarajé ao pedido!");
+            return;
+        }
+        if (!bebidaSelecionada || !pagamentoSelecionado) {
+            alert("Por favor, escolha a bebida e a forma de pagamento!");
+            return;
+        }
+
+        const totais = calcularTotal();
+        const btn = document.querySelector('.btn-enviar');
+        
+        btn.innerText = "Enviando Pedido... Aguarde";
+        btn.disabled = true;
+
+        let detalhesPedido = `Nome do Cliente: ${nome}\n`;
+        detalhesPedido += `Telefone/WhatsApp: ${telefone}\n`;
+        detalhesPedido += `Endereço: ${endereco}\n\n`;
+        detalhesPedido += `--- ITENS DO PEDIDO ---\n`;
+        carrinhoAcarajes.forEach((item, index) => {
+            detalhesPedido += `${index + 1}. Acarajé: ${item.pimenta} e ${item.camarao} (${formatarDinheiro(item.preco)})\n`;
+        });
+        detalhesPedido += `\nBebida: ${bebidaSelecionada.value}\n`;
+        if (obs.trim() !== "") detalhesPedido += `Observações: ${obs}\n`;
+        
+        detalhesPedido += `\n--- PAGAMENTO ---\n`;
+        detalhesPedido += `Forma: ${pagamentoSelecionado.value}\n`;
+        detalhesPedido += `Total a Pagar: ${formatarDinheiro(totais.totalGeral)}\n`;
+
+        fetch(`https://formsubmit.co/ajax/${EMAIL_DESTINO}`, {
+            method: "POST",
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                _subject: `NOVO PEDIDO - ${nome} (Acarajé da Neide)`,
+                _replyto: EMAIL_DESTINO,
+                Cliente: nome,
+                Telefone: telefone,
+                Valor_Total: formatarDinheiro(totais.totalGeral),
+                Resumo_Completo: detalhesPedido
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert("✅ Pedido enviado com sucesso! Logo ele chegará até você.");
+            window.location.reload(); 
+        })
+        .catch(error => {
+            alert("❌ Ocorreu um erro ao enviar seu pedido. Verifique a internet e tente novamente.");
+            btn.innerText = "Confirmar e Enviar Pedido";
+            btn.disabled = false;
+        });
+    }
+
+    calcularTotal();
+</script>
+
+</body>
+</html>
